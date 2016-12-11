@@ -1,0 +1,30 @@
+{
+  "name": "build_a_voting_app",
+  "version": "0.0.1",
+  "main": "server.js",
+  "description": "This is a freecodecamp project, it allows user to authenticate, vote or make new poll",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngohuutuan2805/Build-a-Voting-App.git"
+  },
+  "keywords": [
+    "FreecodeCamp_build_a_voting_app"
+  ],
+  "author": "NgoHuuTuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngohuutuan2805/Build-a-Voting-App/issues"
+  },
+  "homepage": "https://github.com/ngohuutuan2805/Build-a-Voting-App#readme",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.2",
+    "passport": "^0.3.2",
+    "passport-github": "^1.1.0"
+  }
+}
