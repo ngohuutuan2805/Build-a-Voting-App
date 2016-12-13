@@ -1,0 +1,156 @@
+/*
+	Build a voting app
+*/
+
+body{
+    //background: gray;
+
+    padding: 0px;
+    margin: 0px;
+
+}
+
+.container{
+
+    width:90%;
+    height: 100%;
+    padding: 20px;
+    margin: auto;
+
+
+}
+
+#header{
+
+    background: whitesmoke;
+
+    padding: 30px;
+    margin: 0px 0px 10px 0px;
+    border-radius: 3px;
+
+
+}
+
+
+#content{
+    background: #eee;
+
+
+    padding: 40px;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+#table{
+
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0px;
+
+
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-width: 0px;
+    border-color: darkgray;
+
+
+}
+
+
+.cell{
+
+    height: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+    text-align: center;
+
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-color: lightgrey;
+
+}
+
+.cell:hover{
+    cursor: pointer;
+    background-color: rgba(169, 169, 169, 0.2);
+}
+
+#footer{
+    //background: green;
+
+    width: 100%;
+    height: 100px;
+}
+
+
+.button{
+    background: whitesmoke;
+    width: 100px;
+    height: 40px;
+    margin: 0;
+
+    border-radius: 5px;
+}
+
+.clikable{
+    cursor: pointer;
+}
+
+.border{
+    border-style: solid;
+    border-width: 2px;
+}
+
+a{
+    text-decoration: none;
+    color: #565656;
+}
+
+h1{
+    font-size: 80px;
+}
+
+h2{
+    font-size: 40px;
+    font-weight: 100;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: 100;
+}
+
+
+#profile{
+    display: block;
+    float: right;
+
+
+}
+
+/***************************
+    newPoll.html
+****************************/
+
+#txtFiTitle{
+    height: 50px;
+    width: 100%;
+}
+
+#txtFiOptions{
+    height: 200px;
+    width: 100%;
+}
+
+
+/***************************
+    poll.html
+****************************/
+
+#selection{
+    width:400px;
+    height: 40px;
+}

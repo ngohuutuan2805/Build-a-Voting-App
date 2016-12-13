@@ -31,27 +31,31 @@ module.exports = function (passport) {
 		callbackURL: configAuth.githubAuth.callbackURL
 	},
 	function (token, refreshToken, profile, done) {
+		/*
+		* 	Sau khi login xong thì user mới đc tạo ra và done() nhận user làm parameter để lưu user đó vào passport (req.user)
+		*
+		* */
         console.log('Passport token       : ' + token)
         console.log('Passport refreshtoken: ' + refreshToken)
-        console.log('Passport user profile: ' + profile.toString())
+        console.log('Passport user profile: ' + JSON.stringify(profile))
 
 		process.nextTick(function () {
+
 			User.findOne({ 'github.id': profile.id }, function (err, user) {
 				if (err) {
 					return done(err);
 				}
 
 				if (user) {
-					return done(null, user);
+					return done(null, user);  // user này sẽ được lưu vào request và truy cập bằng cách req.user
 				} else {
-				    // Trường hợp chưa có user nào
+					// Trường hợp chưa có user nào
 					var newUser = new User();
 
 					newUser.github.id = profile.id;
 					newUser.github.username = profile.username;
 					newUser.github.displayName = profile.displayName;
 					newUser.github.publicRepos = profile._json.public_repos;
-					newUser.nbrClicks.clicks = 0;
 
 					newUser.save(function (err) {
 						if (err) {
@@ -62,6 +66,7 @@ module.exports = function (passport) {
 					});
 				}
 			});
+
 		});
 	}));
 };

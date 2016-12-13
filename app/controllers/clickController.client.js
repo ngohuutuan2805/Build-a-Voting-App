@@ -2,32 +2,121 @@
 
 (function () {
 
-   var addButton = document.querySelector('.btn-add');
-   var deleteButton = document.querySelector('.btn-delete');
-   var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = appUrl + '/api/:id/clicks';
+   console.log("ClickController.client.js...")
 
-   function updateClickCount (data) {
-      var clicksObject = JSON.parse(data);
-      clickNbr.innerHTML = clicksObject.clicks;
+   var btnHome = document.getElementById('btnHome');
+   var btnLogin= document.getElementById('btnLogin');
+   var cellArr = document.getElementsByClassName('cell')
+   var pollTable = document.getElementById('table')
+
+   // Element visible after login
+   var btnMyPolls = document.getElementById('btnMyPolls')
+   var btnNewPoll = document.getElementById('btnNewPoll')
+   var btnLogout  = document.getElementById('btnLogout')
+   var profile    = document.getElementById('profile')
+
+   // NewPoll.html
+   var btnSave = document.getElementById('btnSave')
+   var txtFiTitle = document.getElementById('txtFiTitle')
+   var txtFiOptions = document.getElementById('txtFiOptions')
+
+
+   for(var i = 0; i < cellArr.length; i++){
+
+      var cell = cellArr.item(i);
    }
 
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount));
 
-   addButton.addEventListener('click', function () {
+   function  receivePolls(data) {
 
-      ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-      });
+      var pollArr = JSON.parse(data);
+
+      var htmlInner = ""
+      for(var i = 0; i < pollArr.length; i++){
+         var poll = pollArr[i]
+
+         htmlInner += '<a href="/poll?id=' + poll._id + '"><div class="cell">' + poll.title + '</div></a>'
+      }
+      console.log("Recieved poll array: " + htmlInner)
+
+      if(pollTable){
+         pollTable.innerHTML = htmlInner
+      }
+
+   }
+
+   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', appUrl + '/getPolls', receivePolls));
+
+   btnHome.addEventListener('click', function () {
+      console.log("Click home")
+
+      window.location.href = appUrl;
 
    }, false);
 
-   deleteButton.addEventListener('click', function () {
+   if(btnLogin){
+      btnLogin.addEventListener('click', function () {
+         console.log("Click login")
 
-      ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-      });
+         // Go to login page
+         window.location.href = appUrl + '/login';
 
-   }, false);
+      }, false);
+   }
+
+   if(btnMyPolls){
+      btnMyPolls.addEventListener('click', function () {
+         console.log("Click my polls")
+
+         window.location.href = appUrl + '/myPolls'
+
+      }, false);
+   }
+
+   if(btnNewPoll){
+      btnNewPoll.addEventListener('click', function () {
+         console.log("Click new poll")
+
+         window.location.href = appUrl + '/newPoll'
+
+      }, false);
+   }
+
+   if(btnLogout){
+      btnLogout.addEventListener('click', function () {
+         console.log("Click logout")
+
+         window.location.href = appUrl + '/logout'
+
+      }, false);
+   }
+
+   if(btnSave){
+      btnSave.addEventListener('click', function () {
+         console.log('Click save')
+
+
+         var body = {}
+         body.title = txtFiTitle.value
+         var options = txtFiOptions.value.split('\n')
+         body.options = [];
+         for(var i = 0; i < options.length; i++){
+            body.options.push({
+               option:options[i],
+               selectedCount: 0
+            })
+         }
+
+         console.log('Save new poll : ' + JSON.stringify(body))
+
+         ajaxFunctions.sendPostRequest('POST', appUrl + '/saveNewPoll', function (data) {
+            console.log('Save new poll successful: ' + data)
+
+            window.location.href = appUrl
+         }, body)
+
+      })
+   }
+
 
 })();
